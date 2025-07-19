@@ -11,6 +11,17 @@ ORDER BY TotalSpent DESC;
 select FORMAT(OrderDate, '2025-05-03') as resultado from Orders 
 
 
+SELECT
+    FORMAT(O.OrderDate,'yyyy-MM')  AS YearMonth,
+    SUM(OI.Quantity * OI.UnitPrice) AS TotalSales,
+    COUNT(DISTINCT O.OrderID)       AS OrderCount,
+    CAST(SUM(OI.Quantity * OI.UnitPrice) / COUNT(DISTINCT O.OrderID) AS DECIMAL(10,2)) AS AvgTicket
+FROM Orders O
+JOIN OrderItems OI ON OI.OrderID = O.OrderID
+GROUP BY FORMAT(O.OrderDate,'yyyy-MM')
+ORDER BY YearMonth;
+
+
 
 SELECT TOP 3 P.ProductID, P.ProductName, 
 SUM(OI.Quantity*OI.UnitPrice) AS Revenue 
