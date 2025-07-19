@@ -33,7 +33,7 @@ on os.CustomerID = cs.CustomerID
 select * from Customers cs 
 inner join Orders ors on cs.CustomerID = ors.CustomerID 
 
-select  CUS.CustomerID, CUS.FullName, SUM(OIS.UnitPrice * OIS.UnitPrice) as SumaTotal  
+select  CUS.CustomerID, CUS.FullName, SUM(OIS.Quantity * OIS.UnitPrice) as SumaTotal  
 from OrderItems OIS 
 inner join Orders ORS on OIS.OrderID = ORS.OrderID
 inner join Customers CUS on ORS.CustomerID = CUS.CustomerID
@@ -41,7 +41,7 @@ inner join Products PRS on OIs.ProductID = PRS.ProductID
 GROUP by CUS.CustomerID, CUS.FullName
 order by SumaTotal Desc 
 
-select * from OrderItems
+select * from OrderItems a inner join orders b on a.orderId = b.orderid where b.customerid = 1
 select * from Products
 
 
